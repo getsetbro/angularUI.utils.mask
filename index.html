@@ -8,17 +8,24 @@
 </head>
 
 <body>
+    <footer class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="brand">
+                angular ui-utils
+            </div>
+        </div>
+    </footer>
     <div class="container">
         <div id="utils" ng-app="utils">
-            <section id="mask">
-                <form name="demo" class="form-horizontal">
+            <section id="mask" ng-controller="controller1">
+                <form name="demo">
                     <div class="control-group">
                         <div class="controls">
-                            <p class="lead" style="margin-top:60px">uiMask Directive Demo</p>
+                            <p class="lead">uiMask Directive Demo</p>
                         </div>
-                        <label class="control-label">Masked Input:</label>
+                        <h4>Masked Input:</h4>
                         <div class="controls">
-                            <input name="masked" ui-mask="{{y}}" ng-model="x" placeholder="Write a mask or click a button" class="input-large" style="vertical-align: top;">
+                            <input name="masked" ui-mask="{{y}}" ng-model="x" class="form-control"/>
                             <span class="help-inline">
                                 <div ng-show="x.length">Model value:
                                     <code>{{ x }}</code>
@@ -35,10 +42,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="control-group">
+                    <!--
+                     <div class="control-group">
                         <label class="control-label">Mask Definition:</label>
                         <div class="controls">
-                            <input ng-model="y" class="input-large" style="vertical-align: top;">
+                            <input ng-model="y"/>
                             <span class="help-inline">
                                 <code>A</code>Any letter.
                                 <br>
@@ -47,22 +55,21 @@
                                 <code>*</code>Any letter or number.</span>
                         </div>
                     </div>
-
+                    -->
                     <div class="control-group">
-                        <label class="control-label">Masks:</label>
                         <div class="controls">
                             <p>
-                                <button class="btn" ng-click="y = undefined">Set to undefined (uninitialize)</button>
+                                <label>
+                                    <input type="checkbox" checked="" ng-click="toggleMask()">
+                                    On
+                                </label>
                             </p>
                         </div>
+                        <hr>
+                        <h5>Others</h5>
                         <div class="controls">
                             <p>
                                 <button class="btn" ng-click="y = '(999) 999-9999'">Set to (999) 999-9999</button>
-                            </p>
-                        </div>
-                        <div class="controls">
-                            <p>
-                                <button class="btn" ng-click="y = '(999) 999-9999 ext. 999'">Set to (999) 999-9999 ext. 999</button>
                             </p>
                         </div>
                         <div class="controls">
@@ -75,11 +82,30 @@
             </section>
         </div>
     </div>
+    <p>•</p>
+    <p>•</p>
+    <p>•</p>
+    <footer class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="brand">
+            from <a href="https://github.com/angular-ui/ui-utils">https://github.com/angular-ui/ui-utils</a>
+            </div>
+        </div>
+    </footer>
     <script src="assets/vendor/angular.min.js"></script>
     <script>
+    /*global angular:false */
     'use strict';
     angular.module('utils', ['ui.mask']);
 
+    function controller1($scope) {
+        $scope.z = '(999) 999-9999 x999999';
+        $scope.y = $scope.z;
+        
+        $scope.toggleMask = function() {
+            $scope.y = ($scope.y === undefined) ? $scope.z : undefined;
+        };
+    }
     /*Attaches input mask onto input element*/
     angular.module('ui.mask', [])
         .value('uiMaskConfig', {
